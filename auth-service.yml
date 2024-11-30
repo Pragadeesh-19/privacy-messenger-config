@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/auth-service
+    username: postgres
+    password: 12345
+    driver-class-name: org.Postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: false
+
+server:
+  port: 8081
+
+jwt:
+  secret: 32B099BB09034268456CFB32914092391ECB2B275F0FAB0E91740463EF8F424A25CA74134CF884DC1DE6B045EB71641D7DC08BBC23D9A7EC3E8D8439BAF04362
+  expiration: 86400000
