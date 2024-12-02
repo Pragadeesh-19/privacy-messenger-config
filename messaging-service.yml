@@ -1,0 +1,56 @@
+server:
+  port: 8082
+  shutdown: graceful
+  tomcat:
+    max-threads: 200
+    accept-count: 100
+    connection-timeout: 5000
+    max-connections: 8192
+    keep-alive-timeout: 20000
+
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+  cassandra:
+    keyspace-name: messaging_keyspace
+    contact-points: localhost
+    port: 9042
+    local-datacenter: datacenter1
+    schema-action: create_if_not_exists
+    request:
+      timeout: 10s
+      throttler:
+        max-queue-size: 256
+    connection:
+      connect-timeout: 10s
+      init-query-timeout: 10s
+    pool:
+      idle-timeout: 5s
+      heartbeat-interval: 30s
+
+websocket:
+  endpoint: /ws
+  destination-prefix: /app
+  topic-prefix: /topic
+  allowed-origins: ${ALLOWED_ORIGINS:*}
+  heartbeat:
+    incoming: 25000
+    outgoing: 25000
+  client-broker-channel:
+    prefix: /topic
+    user-prefix: /user
+  message:
+    size-limit: 65536
+    buffer-size-limit: 512000
+  security:
+    same-site-policy: Strict
+    content-security-policy: "default-src 'self'"
+
+jwt:
+  secret: 32B099BB09034268456CFB32914092391ECB2B275F0FAB0E91740463EF8F424A25CA74134CF884DC1DE6B045EB71641D7DC08BBC23D9A7EC3E8D8439BAF04362
+  header: Authorization
+  prefix: Bearer
+  expiration: 86400000
+
+encryption:
+  key: 32B099BB09034268456CFB32914092391ECB2B275F0FAB0E91740463EF8F424A25CA74134CF884DC1DE6B045EB71641D7DC08BBC23D9A7EC3E8D8439BAF04362
